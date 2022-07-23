@@ -87,7 +87,7 @@
     <bool name="config_nightDisplayAvailable">false</bool>
 
     <!-- Whether device supports double tap to wake -->
-    <bool name="config_supportDoubleTapWake">true</bool>
+    <bool name="config_supportDoubleTapWake">false</bool>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater

@@ -4,7 +4,7 @@ build:
   stage: build
   script:
     - apt update
-    - apt install android-tools-mkbootimg bc bison build-essential ca-certificates cpio curl flex git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils -y --no-install-recommends
+    - apt install zip unzip android-tools-mkbootimg bc bison build-essential ca-certificates cpio curl flex git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils -y --no-install-recommends
     - ln -sf python2.7 /usr/bin/python
     - wget https://raw.githubusercontent.com/LineageOS/android_system_core/lineage-17.1/mkbootimg/mkbootimg.py -O /usr/bin/mkbootimg
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
@@ -13,34 +13,29 @@ build:
     paths:
       - out/*
 
-flashable:
+devel:
   stage: deploy
   script:
     - apt update
-    - apt install -y git img2simg jq sudo wget xz-utils
-    - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
-    - DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
-    - ./build/fetch-and-prepare-latest-ota.sh "16.04/arm64/android9/devel" "$DEVICE" ota
-    - mkdir -p out
-    - ./build/system-image-from-ota.sh ota/ubuntu_command out
-  artifacts:
-    paths:
-      - out/boot.img
-      - out/system.img
-  when: manual
-
-devel-flashable:
-  stage: deploy
-  script:
-    - apt update
-    - apt install -y git img2simg jq sudo wget xz-utils
+    - apt install -y git img2simg jq sudo wget xz-utils zip unzip rclone
+    - mkdir -p ~/.config/rclone
+    - mkdir -p /root/.config/rclone
+    - echo "$RCLONE" > ~/.config/rclone/rclone.conf
+    - echo "$RCLONE" > /root/.config/rclone/rclone.conf
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
     - DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
     - ./build/prepare-fake-ota.sh out/device_$DEVICE.tar.xz ota
     - mkdir -p out
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
     - mv out/rootfs.img out/ubuntu.img
+    - git clone -b sweet-11.0 https://github.com/KernelPanic-OpenSource/UBPorts.git
+    - cp -r out/ubuntu.img UBPorts/data/
+    - cp -r out/boot.img UBPorts/data/
+    - cd UBPorts/
+    - zip -rv9 "UBPorts-Xenial-Sweet-halium-11.0-$(date +"%d-%m-%Y")-Devel.zip" *
+    - rclone copy -v UBPorts-Xenial-Sweet-halium* cirrus:UBPorts/"$(date +'%d-%m-%Y')"/
+    - cd ..
   artifacts:
     paths:
-      - out/boot.img
       - out/ubuntu.img
+      - out/boot.img
