@@ -32,7 +32,8 @@ devel:
     - cp -r out/ubuntu.img UBPorts/data/
     - cp -r out/boot.img UBPorts/data/
     - cd UBPorts/
-    - wget -O data/firmware.zip https://github.com/KernelPanic-OpenSource/UBPorts/releases/download/Miui-V12.5.9.0-Sweet/fw_sweet_miui_SWEETGlobal_V12.5.9.0.RKFMIXM_9a9a09a8de_11.0.zip
+    - wget -O data/firmware-sweet.zip https://github.com/KernelPanic-OpenSource/UBPorts/releases/download/Miui-V12.5.9.0-Sweet/fw_sweet_miui_SWEETGlobal_V12.5.9.0.RKFMIXM_9a9a09a8de_11.0.zip
+    - wget -O data/firmware-sweetin.zip https://github.com/KernelPanic-OpenSource/UBPorts/releases/download/Miui-V12.5.9.0-Sweet/fw_sweetin_miui_SWEETININGlobal_V12.5.10.0.RKFINXM_dd18557436_11.0.zip
     - zip -rv9 "UBPorts-Xenial-Sweet-halium-11.0-$(date +"%d-%m-%Y")-Devel.zip" *
     - rclone copy -v UBPorts-Xenial-Sweet-halium* cirrus:UBPorts/"$(date +'%d-%m-%Y')"/
     - cd ..
