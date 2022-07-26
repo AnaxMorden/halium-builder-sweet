@@ -43,7 +43,7 @@ flashable:
       - out/boot.img
   when: manual
 
-devel-flashable-focal:
+flashable-focal:
   stage: deploy
   script:
     - apt update
