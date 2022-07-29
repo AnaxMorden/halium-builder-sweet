@@ -34,7 +34,6 @@ task:
     - mv out /tmp/ci/UBPorts/
   Xenial_script:
     - cd /tmp/ci/UBPorts/xiaomi-sweet
-    - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
     - export DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
     - chmod +x build/prepare-fake-ota.sh
     - ./build/prepare-fake-ota.sh out/device_$DEVICE.tar.xz ota
