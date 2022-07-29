@@ -15,7 +15,7 @@ task:
     memory: 8G
 
   sshkey_script:
-    - mkdir -p ~/.ssh && sudo chmod 700 ~/.ssh/ && sudo rm -rf /root/.ssh && git config --global --add safe.directory /tmp/ci/UBPorts && git config --global user.name "$USERNAME" && git config --global user.email "$EMAIL" && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && touch ~/.ssh/id_ed25519.pub && touch ~/.ssh/id_ed25519 && echo "$SSHKEY1" > ~/.ssh/id_ed25519.pub && echo "$SSHKEY2" > ~/.ssh/id_ed25519 && sudo chmod 400 ~/.ssh/* && ssh-keygen -R $(curl ifconfig.me)
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh/ && rm -rf /root/.ssh && git config --global --add safe.directory /tmp/ci/UBPorts && git config --global user.name "$USERNAME" && git config --global user.email "$EMAIL" && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && touch ~/.ssh/id_ed25519.pub && touch ~/.ssh/id_ed25519 && echo "$SSHKEY1" > ~/.ssh/id_ed25519.pub && echo "$SSHKEY2" > ~/.ssh/id_ed25519 && chmod 400 ~/.ssh/* && ssh-keygen -R $(curl ifconfig.me)
   setup_script:
     - apt install zip unzip android-tools-mkbootimg bc bison build-essential ca-certificates cpio curl flex git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils -y --no-install-recommends
     - ln -sf python2.7 /usr/bin/python
