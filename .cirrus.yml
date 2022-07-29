@@ -14,6 +14,10 @@ task:
     cpu: 4
     memory: 8G
 
+  locate_script:
+    - apt-get update && apt-get install -y locales
+    - sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+    - locale-gen en_US.UTF-8
   setup_script:
     - apt update
     - apt install zip unzip android-tools-mkbootimg bc bison build-essential ca-certificates cpio curl flex git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils -y --no-install-recommends
@@ -22,7 +26,6 @@ task:
   directory_script:
     - git clone -b halium-11.0 --single-branch --depth="1" https://github.com/dopaemon/ubports-sweet.git /tmp/ci/UBPorts/xiaomi-sweet
   kernel_script:
-    - export LC_ALL=C.UTF-8
     - cd /tmp/ci/UBPorts/xiaomi-sweet
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
     - chmod +x build/build.sh
