@@ -31,7 +31,6 @@ task:
     - chmod +x build/build.sh
     - ./build/build.sh
     - ls out
-    - mv out /tmp/ci/UBPorts/
   Xenial_script:
     - cd /tmp/ci/UBPorts/xiaomi-sweet
     - export DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
