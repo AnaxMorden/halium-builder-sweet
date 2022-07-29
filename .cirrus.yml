@@ -31,8 +31,9 @@ task:
     - chmod +x build/build.sh
     - ./build/build.sh
     - ls out
+    - mv out /tmp/ci/UBPorts/
   Xenial_script:
-    - cd /tmp/ci/UBPorts/xiaomi-sweet
+    - cd /tmp/ci/UBPorts/
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
     - export DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
     - chmod +x build/prepare-fake-ota.sh
@@ -40,6 +41,8 @@ task:
     - chmod +x build/system-image-from-ota.sh
     - ./build/system-image-from-ota.sh ota/ubuntu_command out
     - mv out/rootfs.img out/ubuntu.img
+  flashable_script:
+    - cd /tmp/ci/UBPorts/
     - git clone -b sweet-11.0 https://github.com/KernelPanic-OpenSource/UBPorts.git
     - cp -r out/ubuntu.img UBPorts/data/
     - cp -r out/boot.img UBPorts/data/
