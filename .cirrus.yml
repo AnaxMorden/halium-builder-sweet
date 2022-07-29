@@ -20,7 +20,7 @@ task:
     - ln -sf python2.7 /usr/bin/python
     - wget https://raw.githubusercontent.com/LineageOS/android_system_core/lineage-17.1/mkbootimg/mkbootimg.py -O /usr/bin/mkbootimg
   sshkey_script:
-    - touch /root/.ssh/known_hosts && mkdir -p ~/.ssh && chmod 700 ~/.ssh/ && rm -rf /root/.ssh && git config --global --add safe.directory /tmp/ci/UBPorts && git config --global user.name "$USERNAME" && git config --global user.email "$EMAIL" && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && touch ~/.ssh/id_ed25519.pub && touch ~/.ssh/id_ed25519 && echo "$SSHKEY1" > ~/.ssh/id_ed25519.pub && echo "$SSHKEY2" > ~/.ssh/id_ed25519 && chmod 400 ~/.ssh/* && ssh-keygen -R $(curl ifconfig.me)
+    - touch ~/.ssh/known_hosts && mkdir -p ~/.ssh && chmod 700 ~/.ssh/ && rm -rf ~/.ssh && git config --global --add safe.directory /tmp/ci/UBPorts && git config --global user.name "$USERNAME" && git config --global user.email "$EMAIL" && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && touch ~/.ssh/id_ed25519.pub && touch ~/.ssh/id_ed25519 && echo "$SSHKEY1" > ~/.ssh/id_ed25519.pub && echo "$SSHKEY2" > ~/.ssh/id_ed25519 && chmod 400 ~/.ssh/* && ssh-keygen -R $(curl ifconfig.me)
   directory_script:
     - git clone -b halium-11.0 --single-branch --depth="1" https://github.com/dopaemon/ubports-sweet.git /tmp/ci/UBPorts/xiaomi-sweet
   kernel_script:
