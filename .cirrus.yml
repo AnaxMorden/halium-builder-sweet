@@ -22,6 +22,7 @@ task:
   directory_script:
     - git clone -b halium-11.0 --single-branch --depth="1" https://github.com/dopaemon/ubports-sweet.git /tmp/ci/UBPorts/xiaomi-sweet
   kernel_script:
+    - export LC_ALL=C.UTF-8
     - cd /tmp/ci/UBPorts/xiaomi-sweet
     - git clone https://gitlab.com/ubports/community-ports/halium-generic-adaptation-build-tools -b halium-11 build
     - chmod +x build/build.sh
